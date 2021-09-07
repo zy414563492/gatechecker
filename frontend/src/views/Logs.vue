@@ -16,6 +16,15 @@
           {{ item.temperature }}
         </v-chip>
       </template>
+
+      <template v-slot:[`item.is_blacklist`]="{ item }">
+        <v-icon
+          :color="getIconColor(item.is_blacklist)"
+          class="mr-2"
+        >
+          {{ item.is_blacklist ? "mdi-alert-decagram" : "mdi-check-circle-outline"}}
+        </v-icon>
+      </template>
       
       <template v-slot:top>
         <v-toolbar
@@ -34,13 +43,13 @@
           >
             <template v-slot:activator="{ on, attrs }">
               <v-btn
-                color="primary"
+                color="warning"
                 dark
                 class="mb-2"
                 v-bind="attrs"
                 v-on="on"
               >
-                New Item
+                模擬検温記録を追加
               </v-btn>
             </template>
             <v-card>
@@ -108,9 +117,28 @@
                         :items="blacklist_state"
                         item-text="state_name"
                         item-value="state"
-                        label="ブラックリスト"
+                        label="ブラックリスト検出"
                         outlined
-                      ></v-select>
+                      >
+                        <template slot='selection' slot-scope='{ item }'>
+                          <v-icon
+                            :color="getIconColor(item.state)"
+                            class="mr-2"
+                          >
+                            {{ item.state ? "mdi-alert-decagram" : "mdi-check-circle-outline"}}
+                          </v-icon>
+                        </template>
+                        
+                        <template slot='item' slot-scope='{ item }'>
+                          <v-icon
+                            :color="getIconColor(item.state)"
+                            class="mr-2"
+                          >
+                            {{ item.state ? "mdi-alert-decagram" : "mdi-check-circle-outline"}}
+                          </v-icon>
+                        </template>
+
+                      </v-select>
                     </v-col>
                   </v-row>
                 </v-container>
@@ -123,25 +151,25 @@
                   text
                   @click="close"
                 >
-                  Cancel
+                  キャンセル
                 </v-btn>
                 <v-btn
                   color="blue darken-1"
                   text
                   @click="save"
                 >
-                  Save
+                  保存
                 </v-btn>
               </v-card-actions>
             </v-card>
           </v-dialog>
           <v-dialog v-model="dialogDelete" max-width="500px">
             <v-card>
-              <v-card-title class="text-h5">Are you sure you want to delete this item?</v-card-title>
+              <v-card-title class="text-h5 justify-center">このアイテムを削除しますか？</v-card-title>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="closeDelete">Cancel</v-btn>
-                <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
+                <v-btn color="blue darken-1" text @click="closeDelete">キャンセル</v-btn>
+                <v-btn color="blue darken-1" text @click="deleteItemConfirm">確定</v-btn>
                 <v-spacer></v-spacer>
               </v-card-actions>
             </v-card>
@@ -185,14 +213,14 @@
         { text: 'ログID', value: 'log_id' },
         { text: '時間', value: 'time' },
         { text: '体温', value: 'temperature' },
-        { text: 'ブラックリスト', value: 'is_blacklist' },
+        { text: 'ブラックリスト検出', value: 'is_blacklist' },
         { text: '操作', value: 'actions', sortable: false },
       ],
       devices: [],
       logs: [],
       blacklist_state: [
-        {state: true, state_name:'検出'},
-        {state: false, state_name:'-'}
+        { state: true, state_name: '◯' },
+        { state: false, state_name: '✖️' }
       ],
       editedIndex: -1,
       editedItem: {
@@ -213,7 +241,7 @@
 
     computed: {
       formTitle () {
-        return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
+        return this.editedIndex === -1 ? '模擬検温記録を追加' : '模擬検温記録を更新'
         // return 'New Item'
       },
     },
@@ -279,6 +307,11 @@
       getColor (temperature) {
         if (temperature > 37.5) return 'red'
         else if (temperature > 37.0) return 'orange'
+        else return 'green'
+      },
+
+      getIconColor (is_blacklist) {
+        if (is_blacklist) return 'red'
         else return 'green'
       },
 
