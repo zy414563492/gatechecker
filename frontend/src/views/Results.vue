@@ -119,7 +119,7 @@
     methods: {
       async initialize () {
         await this.$axios
-        .post('http://localhost:8000/gatechecker/get_count')
+        .post('/api/get_count')
         .then((res) => {
           console.log(res.data)
           this.count_info = res.data.count_info
@@ -130,7 +130,7 @@
       async clearAlarm (item) {
         await this.$axios({
           method: 'post',
-          url: 'http://localhost:8000/gatechecker/clear_alarm_by_building_name',
+          url: '/api/clear_alarm_by_building_name',
           withCredentials: true,
           data: JSON.stringify(item)
         }).then((res) => {

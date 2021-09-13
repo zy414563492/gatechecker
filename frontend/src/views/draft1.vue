@@ -39,7 +39,7 @@ export default {
   methods: {
     show_users () {
       this.$axios
-        .post('http://localhost:8000/gatechecker/get_users')
+        .post('/api/get_users')
         .then((res) => {
           console.log(res.data)
           this.user_list = res.data.user_list

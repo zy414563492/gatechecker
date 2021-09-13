@@ -204,7 +204,7 @@
     methods: {
       async initialize () {
         await this.$axios
-        .post('http://localhost:8000/gatechecker/get_buildings')
+        .post('/api/get_buildings')
         .then((res) => {
           console.log(res.data)
           this.buildings = res.data.building_list
@@ -215,7 +215,7 @@
       async addBuilding (item) {
         await this.$axios({
           method: 'post',
-          url: 'http://localhost:8000/gatechecker/add_building',
+          url: '/api/add_building',
           withCredentials: true,
           data: JSON.stringify(item)
         }).then((res) => {
@@ -226,7 +226,7 @@
       async removeBuilding (item) {
         await this.$axios({
           method: 'post',
-          url: 'http://localhost:8000/gatechecker/remove_building',
+          url: '/api/remove_building',
           withCredentials: true,
           data: JSON.stringify(item)
         }).then((res) => {
@@ -237,7 +237,7 @@
       // 所属ユーザーの選択肢を取得する
       async getUsers () {
         await this.$axios
-        .post('http://localhost:8000/gatechecker/get_users_id')
+        .post('/api/get_users_id')
         .then((res) => {
           console.log(res.data)
           this.users = res.data.users

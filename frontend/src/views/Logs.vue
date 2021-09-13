@@ -263,7 +263,7 @@
     methods: {
       async initialize () {
         await this.$axios
-        .post('http://localhost:8000/gatechecker/get_logs')
+        .post('/api/get_logs')
         .then((res) => {
           console.log(res.data)
           this.logs = res.data.log_list
@@ -274,7 +274,7 @@
       async addLog (item) {
         await this.$axios({
           method: 'post',
-          url: 'http://localhost:8000/gatechecker/add_log',
+          url: '/api/add_log',
           withCredentials: true,
           data: JSON.stringify(item)
         }).then((res) => {
@@ -285,7 +285,7 @@
       async removeLog (item) {
         await this.$axios({
           method: 'post',
-          url: 'http://localhost:8000/gatechecker/remove_log',
+          url: '/api/remove_log',
           withCredentials: true,
           data: JSON.stringify(item)
         }).then((res) => {
@@ -296,7 +296,7 @@
       // 所属デバイスの選択肢を取得する
       async getDevices () {
         await this.$axios
-        .post('http://localhost:8000/gatechecker/get_devices_id')
+        .post('/api/get_devices_id')
         .then((res) => {
           console.log(res.data)
           this.devices = res.data.devices

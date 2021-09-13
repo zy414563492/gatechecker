@@ -248,7 +248,7 @@
     methods: {
       async initialize () {
         await this.$axios
-        .post('http://localhost:8000/gatechecker/get_devices')
+        .post('/api/get_devices')
         .then((res) => {
           console.log(res.data)
           this.devices = res.data.device_list
@@ -259,7 +259,7 @@
       async addDevice (item) {
         await this.$axios({
           method: 'post',
-          url: 'http://localhost:8000/gatechecker/add_device',
+          url: '/api/add_device',
           withCredentials: true,
           data: JSON.stringify(item)
         }).then((res) => {
@@ -270,7 +270,7 @@
       async removeDevice (item) {
         await this.$axios({
           method: 'post',
-          url: 'http://localhost:8000/gatechecker/remove_device',
+          url: '/api/remove_device',
           withCredentials: true,
           data: JSON.stringify(item)
         }).then((res) => {
@@ -281,7 +281,7 @@
       // 所属ゲートの選択肢を取得する
       async getGates () {
         await this.$axios
-        .post('http://localhost:8000/gatechecker/get_gates_id')
+        .post('/api/get_gates_id')
         .then((res) => {
           console.log(res.data)
           this.gates = res.data.gates

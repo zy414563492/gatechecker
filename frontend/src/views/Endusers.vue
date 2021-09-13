@@ -172,7 +172,7 @@
     methods: {
       async initialize () {
         await this.$axios
-        .post('http://localhost:8000/gatechecker/get_users')
+        .post('/api/get_users')
         .then((res) => {
           console.log(res.data)
           this.users = res.data.user_list
@@ -183,7 +183,7 @@
       async addUser (item) {
         await this.$axios({
           method: 'post',
-          url: 'http://localhost:8000/gatechecker/add_user',
+          url: '/api/add_user',
           withCredentials: true,
           data: JSON.stringify(item)
         }).then((res) => {
@@ -194,7 +194,7 @@
       async removeUser (item) {
         await this.$axios({
           method: 'post',
-          url: 'http://localhost:8000/gatechecker/remove_user',
+          url: '/api/remove_user',
           withCredentials: true,
           data: JSON.stringify(item)
         }).then((res) => {

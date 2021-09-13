@@ -220,7 +220,7 @@
     methods: {
       async initialize () {
         await this.$axios
-        .post('http://localhost:8000/gatechecker/get_gates')
+        .post('/api/get_gates')
         .then((res) => {
           console.log(res.data)
           this.gates = res.data.gate_list
@@ -231,7 +231,7 @@
       async addGate (item) {
         await this.$axios({
           method: 'post',
-          url: 'http://localhost:8000/gatechecker/add_gate',
+          url: '/api/add_gate',
           withCredentials: true,
           data: JSON.stringify(item)
         }).then((res) => {
@@ -242,7 +242,7 @@
       async removeGate (item) {
         await this.$axios({
           method: 'post',
-          url: 'http://localhost:8000/gatechecker/remove_gate',
+          url: '/api/remove_gate',
           withCredentials: true,
           data: JSON.stringify(item)
         }).then((res) => {
@@ -253,7 +253,7 @@
       // 所属施設の選択肢を取得する
       async getBuildings () {
         await this.$axios
-        .post('http://localhost:8000/gatechecker/get_buildings_id')
+        .post('/api/get_buildings_id')
         .then((res) => {
           console.log(res.data)
           this.buildings = res.data.buildings
