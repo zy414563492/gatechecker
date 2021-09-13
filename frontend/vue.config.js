@@ -7,10 +7,15 @@ module.exports = {
   },
   devServer: {
     proxy: {
-      '/api/*': {
+      '/api': {
         target: 'http://localhost:8000/gatechecker',
         secure: false,
-        disableHostCheck: true
+        // port: 8080,
+        // disableHostCheck: true,
+        // changeOrigin: true,
+        // pathRewrite:{
+        //    '^/api': '',
+        // }
       }
     }
   },
