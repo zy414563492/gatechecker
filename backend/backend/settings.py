@@ -94,7 +94,7 @@ DATABASES = {
         'NAME': 'gatechecker_db',
         'USER': 'root',
         'PASSWORD': 'root',
-        'HOST': 'localhost',
+        'HOST': 'db',   # Docker用: db;  Local用: localhost
         'PORT': '3306',
     }
 }
