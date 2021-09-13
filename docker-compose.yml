@@ -1,0 +1,43 @@
+# 動作確認 Docker Compose設定ファイル
+#
+# ポート設定
+# - 8080: Frontend
+# - 8000: Backend
+
+version: '3'
+services:
+  # DB
+  db:
+    build: ./db    #Dockerfileからビルドすることを示す
+    container_name: gatechecker_db
+    environment:
+      - MYSQL_HOST=localhost
+      - MYSQL_DATABASE=gatechecker_db
+      - MYSQL_ROOT_PASSWORD=root   #コンテナ内のMySQLを起動する際のパスワードを設定
+    ports:
+      - 3306:3306
+
+  # backend
+  backend:
+    restart: always
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    command: bash -c "python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:8000"
+    container_name: gatechecker_backend
+    ports:
+      - 8000:80
+    depends_on:
+      - db
+
+  # Frontend
+  frontend:
+    restart: always
+    build: ./frontend
+    container_name: gatechecker_frontend
+    ports:
+      - 8080:80
+    volumes:
+      - ./nginx_front.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - backend
