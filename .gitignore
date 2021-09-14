@@ -1,5 +1,9 @@
+# backend
 backend/.idea
+**/__pycache__
 
+# npm packages
 frontend/node_modules/
-frontend_backend/
 
+# volumes
+db/mysql-data/
