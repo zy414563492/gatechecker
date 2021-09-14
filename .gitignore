@@ -1,6 +1,7 @@
 # backend
-backend/.idea
-**/__pycache__
+backend/.idea/
+**/__pycache__/
+**/migrations/
 
 # npm packages
 frontend/node_modules/
