@@ -26,13 +26,13 @@ urlpatterns = [
     url(r'update_gate', views.update_gate, name='update_gate'),
     url(r'remove_gate', views.remove_gate, name='remove_gate'),
 
-    url(r'get_devices_id/$', views.get_devices_id, name='get_devices_id'),
-    url(r'get_devices/$', views.get_devices, name='get_devices'),
+    url(r'get_devices_id', views.get_devices_id, name='get_devices_id'),
+    url(r'get_devices', views.get_devices, name='get_devices'),
     url(r'add_device', views.add_device, name='add_device'),
     url(r'update_device', views.update_device, name='update_device'),
     url(r'remove_device', views.remove_device, name='remove_device'),
 
-    url(r'get_logs/$', views.get_logs, name='get_logs'),
+    url(r'get_logs', views.get_logs, name='get_logs'),
     url(r'add_log', views.add_log, name='add_log'),
     url(r'update_log', views.update_log, name='update_log'),
     url(r'remove_log', views.remove_log, name='remove_log'),
