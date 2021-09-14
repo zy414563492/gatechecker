@@ -19,6 +19,9 @@ RUN pip install pip -U
 # 将 requirements.txt 复制到容器的 app 目录
 ADD requirements.txt /app/
 
+# 安装django
+RUN pip install django==2.2
+
 # 安装库
 RUN pip install -r requirements.txt
 
