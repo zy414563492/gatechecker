@@ -5,5 +5,3 @@ mysqlclient==2.0.3
 numpy==1.19.2
 PyMySQL==1.0.2
 requests==2.25.1
-sqlparse==0.4.1
-urllib3==1.26.4
