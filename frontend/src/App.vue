@@ -28,10 +28,10 @@
     
     <v-navigation-drawer
       v-model="drawer"
-      :permanent="permanent"
+      :permanent="permanent_by_size"
       app
       clipped
-      absolute
+      :absolute="absolute_by_size"
     >
       <v-list-item>
         <v-list-item-content>
@@ -132,5 +132,28 @@ export default {
     ],
     right: null,
   }),
+
+  computed: {
+    permanent_by_size () {
+      switch (this.$vuetify.breakpoint.name) {
+        case 'xs': return false
+        case 'sm': return false
+        case 'md': return this.permanent
+        case 'lg': return this.permanent
+        case 'xl': return this.permanent
+      }
+    },
+
+    absolute_by_size () {
+      switch (this.$vuetify.breakpoint.name) {
+        case 'xs': return false
+        case 'sm': return false
+        case 'md': return true
+        case 'lg': return true
+        case 'xl': return true
+      }
+    },
+  },
+
 };
 </script>
