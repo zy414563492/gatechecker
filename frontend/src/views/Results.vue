@@ -49,10 +49,11 @@
         </v-toolbar>
       </template>
 
-
       <template v-slot:[`item.actions`]="{ item }">
+        <!-- ブラックリスト検出した場合のみアラーム解除できる -->
         <v-icon
-          small
+          :disabled="!item.has_blacklist"
+          :color="item.has_blacklist ? '#0277BD' : ''"
           @click="deleteItem(item)"
         >
           mdi-timer-off-outline
@@ -106,10 +107,9 @@
     }),
 
     computed: {
-      formTitle () {
-        return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
-        // return 'New Item'
-      },
+      // formTitle () {
+      //   return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
+      // },
     },
 
     created () {
