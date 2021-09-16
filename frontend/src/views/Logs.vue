@@ -90,6 +90,8 @@
                         v-model="editedItem.time"
                         label="時間"
                         outlined
+                        :hint="'例: ' + getdateTime()"
+                        persistent-hint
                       ></v-text-field>
                     </v-col>
                   </v-row>
@@ -302,6 +304,25 @@
           this.devices = res.data.devices
         })
         .catch(err => console.log(err))
+      },
+
+      // get current time
+      getdateTime () {
+        var _this = this;
+        let yy = new Date().getFullYear();
+        let mm = new Date().getMonth() + 1;
+        let dd = new Date().getDate();
+        let hh = new Date().getHours();
+        let mf =
+          new Date().getMinutes() < 10
+            ? "0" + new Date().getMinutes()
+            : new Date().getMinutes();
+        let ss =
+          new Date().getSeconds() < 10
+            ? "0" + new Date().getSeconds()
+            : new Date().getSeconds();
+        let gettime = yy + "-" + mm + "-" + dd + " " + hh + ":" + mf + ":" + ss;
+        return gettime;
       },
 
       getColor (temperature) {
