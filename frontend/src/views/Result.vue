@@ -143,11 +143,23 @@ export default {
   }),
 
   created () {
-    // Login成功の場合、取得したデータで初期化する
-    this.count_info = this.$route.query.count_info
+    this.initialize()
   },
 
   methods: {
+    initialize () {
+      // Login成功の場合、取得したデータで初期化する
+      let count_info = this.$route.query.count_info
+
+      // URLでの直接アクセスは禁止にする
+      if (typeof(count_info) == "undefined") {
+        // 跳转到登录页面
+        this.$router.push('/login')
+        return
+      }
+      this.count_info = count_info
+    },
+
     async clearAlarm (item) {
       await this.$axios({
         method: 'post',

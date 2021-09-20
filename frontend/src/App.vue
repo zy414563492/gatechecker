@@ -128,8 +128,8 @@ export default {
       { title: '全体確認', icon: 'mdi-eye-outline', link: '/status' },
     ],
     items_client: [
-      { title: 'ログイン', icon: 'mdi-login-variant', link: '/login' },
-      { title: '現場確認', icon: 'mdi-eye-outline', link: '/result' },
+      // { title: 'ログイン', icon: 'mdi-login-variant', link: '/login' },
+      { title: '現場確認', icon: 'mdi-eye-outline', link: '/login' },
     ],
     right: null,
   }),

@@ -54,6 +54,8 @@
 </template>
 
 <script>
+import store from '../store'
+
 export default {
   props: {
     source: String,
@@ -82,32 +84,22 @@ export default {
             let count_info = res.data.count_info
             console.log(count_info)
 
-            // 获取回跳的redirect地址
-            const redirect = this.$route.query.redirect
-            if (redirect) {
-              // 如果redirect存在说明当前用户是进入某页面后未登陆自动跳转到登陆页面来的，所以登陆完成后得再次回跳到该地址
-              this.$router.push({
-                path: redirect,
-                query: {
-                  count_info: count_info,
-                },
-              })
-            } else {
-              // 否则跳转到默认的页面，首页或者其他页面
-              this.$router.push({
-                path: '/result',
-                query: {
-                  count_info: count_info,
-                },
-              })
-            }
+            // console.log("Get Logged")
+            // store.commit('validAuth')
+
+            // 跳转到结果页面
+            this.$router.push({
+              path: '/result',
+              query: {
+                count_info: count_info,
+              },
+            })
           }
           else {
             // 登录失败，不跳转并提示错误
             this.error_flg = true
             this.error_msg = res.data.error_msg
             console.log(this.error_msg)
-            // console.log('Invalid user ID or building ID')
           }
         })
         .catch(err => {
@@ -116,7 +108,6 @@ export default {
       },
     },
 };
-
 </script>
 
 <style></style>
