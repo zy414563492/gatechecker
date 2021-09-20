@@ -73,7 +73,7 @@
 <script>
   export default {
     data: () => ({
-      name: '現状確認',
+      name: '全体確認',
       dialogDelete: false,
 
       headers: [

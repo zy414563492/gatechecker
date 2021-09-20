@@ -651,6 +651,44 @@ def get_count(request):
     return HttpResponse(json.dumps(count_dic), content_type="application/json")
 
 
+# POST: http://localhost:8000/gatechecker/get_count_single
+def get_count_single(request):
+    input = json.loads(str(request.body, 'utf-8'))
+    user_id = input['user_id']
+    building_id = input['building_id']
+
+    # check user id
+    if User.objects.filter(user_id=user_id).exists():
+        user = User.objects.get(user_id=user_id)
+    else:
+        return HttpResponse(json.dumps({'status': 'fail', 'error_msg': 'Invalid User ID'}), content_type="application/json")
+
+    # 本ユーザーの所有施設を表示する
+    with_buildings_query = user.building_set.all()
+    with_buildings = [b.building_id for b in with_buildings_query]
+
+    # check building id
+    if building_id not in with_buildings:
+        return HttpResponse(json.dumps({'status': 'fail', 'error_msg': 'Invalid Building ID'}), content_type="application/json")
+
+    # get building
+    building = Building.objects.get(building_id=building_id)
+
+    count_dic = {'status': 'success', 'count_info': object}
+    _dic = dict()
+    _dic['name'] = building.name
+    _dic['to_user'] = str(building.to_user)
+    _dic['count_enter'] = building.count_enter()
+    _dic['count_exit'] = building.count_exit()
+    _dic['count_inside'] = building.count_inside()
+    _dic['has_blacklist'] = len(building.get_alert_state()['building_name']) > 0
+    _dic['detail'] = building.get_alert_state()
+    count_dic['count_info'] = _dic
+    print(count_dic)
+
+    return HttpResponse(json.dumps(count_dic), content_type="application/json")
+
+
 # POST: http://localhost:8000/gatechecker/get_alarm
 def get_alarm(request):
     alarm_dic = {'alarm_info': []}

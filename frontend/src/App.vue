@@ -125,10 +125,11 @@ export default {
       { title: 'ゲート', icon: 'mdi-door', link: '/gates' },
       { title: 'デバイス', icon: 'mdi-devices', link: '/devices' },
       { title: '検温記録', icon: 'mdi-checkbook', link: '/logs' },
+      { title: '全体確認', icon: 'mdi-eye-outline', link: '/status' },
     ],
     items_client: [
-      { title: 'ログイン', icon: 'mdi-login-variant', link: '' },
-      { title: '現状確認', icon: 'mdi-eye-outline', link: '/results' },
+      { title: 'ログイン', icon: 'mdi-login-variant', link: '/login' },
+      { title: '現場確認', icon: 'mdi-eye-outline', link: '/result' },
     ],
     right: null,
   }),
