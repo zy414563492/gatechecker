@@ -66,6 +66,11 @@
       <span class="text-caption grey--text font-weight-light">last registration 26 minutes ago</span>
     </v-card-text>
 
+    <v-card-actions>
+      <v-spacer></v-spacer>
+      <v-btn color="primary" @click="exportPdf()">PDFを出力する</v-btn>
+    </v-card-actions>
+
   </v-card>
 
 </template>
@@ -116,7 +121,60 @@
         250,
         240,
       ],
-      
     }),
+
+    methods: {
+
+      downloadFile (response, filename) {
+        // It is necessary to create a new blob object with mime-type explicitly set
+        // otherwise only Chrome works like it should
+        var newBlob = new Blob([response.data], {type: 'application/pdf'})
+
+        // IE doesn't allow using a blob object directly as link href
+        // instead it is necessary to use msSaveOrOpenBlob
+        if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+          window.navigator.msSaveOrOpenBlob(newBlob)
+          return
+        }
+
+        // For other browsers:
+        // Create a link pointing to the ObjectURL containing the blob.
+        const data = window.URL.createObjectURL(newBlob)
+        var link = document.createElement('a')
+        link.href = data
+        link.download = filename + '.pdf'
+        link.click()
+        setTimeout(function () {
+          // For Firefox it is necessary to delay revoking the ObjectURL
+          window.URL.revokeObjectURL(data)
+        }, 100)
+      },
+
+      async exportPdf () {
+        await this.$axios({
+          method: 'post',
+          url: '/api/report',
+          // data: JSON.stringify(item),
+          responseType: 'blob'   // blobを設定しないとPDFは空白になる
+        }).then((response) => {
+
+          // Method 1: 直接にダウンロードする
+          // this.downloadFile(response, 'report')
+          
+          // Method 2: 新しいウィンドウでPDFを開く
+          const blob = new Blob([response.data], { type: response.data.type })
+          console.log(blob)
+
+          // Build a URL from the blob
+          const link = URL.createObjectURL(blob);
+          // Open the URL on new Window
+          window.open(link);
+        })
+        .catch(error => {
+            console.log(error)
+        })
+      },
+    },
+
   }
 </script>

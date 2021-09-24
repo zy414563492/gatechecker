@@ -1,6 +1,7 @@
 from django.conf.urls import url, include
 from django.urls import path
 from . import views
+from . import documents
 
 
 urlpatterns = [
@@ -41,4 +42,6 @@ urlpatterns = [
     url(r'get_count_single', views.get_count_single, name='get_count_single'),
     url(r'get_alarm', views.get_alarm, name='get_alarm'),
     url(r'clear_alarm_by_building_name', views.clear_alarm_by_building_name, name='clear_alarm_by_building_name'),
+
+    url(r'report', documents.report, name='report'),
 ]

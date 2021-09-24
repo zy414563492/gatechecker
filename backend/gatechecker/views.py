@@ -717,5 +717,3 @@ def clear_alarm_by_building_name(request):
     return HttpResponse(json.dumps(building.obj_to_dic()), content_type="application/json")
 
 
-
-
