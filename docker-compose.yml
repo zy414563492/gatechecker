@@ -16,7 +16,7 @@ services:
       - MYSQL_ROOT_PASSWORD=root   # コンテナ内のMySQLを起動する際のパスワードを設定
     volumes:
       - ./db/my.cnf:/etc/mysql/conf.d/my.cnf
-      - ./db/mysql-data:/var/lib/mysql
+      # - ./db/mysql-data:/var/lib/mysql
       - ./db/mysql-dump:/docker-entrypoint-initdb.d   # 初期化する（一回のみ実行）
     ports:
       - 3306:3306
